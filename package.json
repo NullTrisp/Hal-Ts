@@ -4,7 +4,7 @@
   "description": "Package to format api responses into hal format",
   "main": "src/index.ts",
   "scripts": {
-    "start": "node build/index.js",
+    "start": "ts-node src/index.ts",
     "test": "mocha -r ts-node/register test/*.test.ts"
   },
   "repository": {
