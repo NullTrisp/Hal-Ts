@@ -27,12 +27,13 @@ $ npm install hal-ts
 import halts from "hal-ts";
 
 const halResponse = generateObjectResponse({
-    url: "http://localhost:8080/api/user",
+    url: "http://localhost:8080/api/users",
     data: {
         identifier: 1,
-        name: "Zay",
-        isValid: true
-    }
+        name: "Marcus",
+        isAlive: true,
+        _embeded: undefined,
+    },
 })
 ```
 
@@ -45,8 +46,14 @@ const halResponse = generateObjectResponse({
         identifier: 1,
         name: "Marcus",
         isAlive: true,
-        _embeded: undefined,
+        _embeded: [{
+            identifier: 2,
+            name: "Mark",
+            isAlive: false,
+            _embeded: undefined,
+        }],
     },
+
 })
 ```
 
