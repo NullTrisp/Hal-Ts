@@ -6,7 +6,7 @@ export interface IHalObject {
 
 export interface IHalEmbededObject extends IHalObject {
   url: string;
-  _embeded: IHalEmbededObject | undefined;
+  _embeded: IHalEmbededObject | IHalEmbededObject[] | undefined;
 }
 
 export interface IHalObjectRequest {

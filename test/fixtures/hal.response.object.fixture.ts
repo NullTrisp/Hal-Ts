@@ -68,7 +68,14 @@ export const complexObjectWithCollection: IHalObjectRequest = {
         identifier: 11,
         name: "Kleider",
         url: "http://localhost:8080/api/pets",
-        _embeded: undefined,
+        _embeded: [
+          {
+            identifier: 20,
+            name: "test",
+            url: "http://localhost:8080/api/bow",
+            _embeded: undefined,
+          },
+        ],
       },
     ],
   },

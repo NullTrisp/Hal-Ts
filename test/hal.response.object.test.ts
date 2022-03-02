@@ -54,8 +54,6 @@ mocha.describe("Test Hal Object Response", () => {
     (done) => {
       const response = getHalObjectResponse(complexObjectWithCollection);
 
-      console.log(response);
-
       assert.strictEqual(
         response._links.self.href,
         `${complexObjectWithCollection.url}/${complexObjectWithCollection.data.identifier}`
