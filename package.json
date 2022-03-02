@@ -12,14 +12,15 @@
     "url": "https://campus.ctdesarrollo-sdr.org/desarollo_campus/hal-ts.git"
   },
   "keywords": [
-    "hal",
+    "HAL",
     "typescript",
     "node",
     "REST",
-    "api",
-    "response"
+    "API",
+    "response",
+    "JSON"
   ],
-  "author": "Nicolás Calvache",
+  "author": "Nicolás Calvache <nicocalji@gmail.com>",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {

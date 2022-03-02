@@ -4,7 +4,10 @@ import {
   validateCollectionData,
 } from "./actions/actions.hal.collection";
 import { prepareEmbededData } from "./actions/actions.hal.object";
-import { IHalCollectionRequest } from "./types/types.collection";
+import {
+  IHalCollectionRequest,
+  IHalCollectionResponse,
+} from "./types/types.collection";
 import { IHalObjectRequest, IHalObjectResponse } from "./types/types.object";
 
 /**
@@ -32,11 +35,62 @@ export const getHalObjectResponse = (baseData: IHalObjectRequest) => {
 };
 
 /**
+ * Get a Hal collection response
  *
- * @param baseData
- * @returns
+ * ```
+ * const arrayData = [
+ *    {
+ *       url: "http://localhost:8080/api/users",
+ *       data: {
+ *         identifier: 1,
+ *         name: "Marcus",
+ *         isAlive: true,
+ *         _embeded: undefined,
+ *     },
+ *     {
+ *        url: "http://localhost:8080/api/users",
+ *        data: {
+ *          identifier: 2,
+ *          name: "Markus",
+ *          isAlive: false,
+ *          _embeded: undefined,
+ *        },
+ *      }
+ *      {
+ *         url: "http://localhost:8080/api/users",
+ *         data: {
+ *           identifier: 3,
+ *           name: "Marly",
+ *           isAlive: false,
+ *           _embeded: undefined,
+ *         },
+ *      },
+ *      {
+ *        url: "http://localhost:8080/api/users",
+ *        data: {
+ *          identifier: 4,
+ *          name: "Kane",
+ *          isAlive: true,
+ *          _embeded: undefined,
+ *        },
+ *      }
+ * ]
+ * const baseData : IHalCollectionRequest = {
+ *    data: arrayData;
+ *    chunk: 2;
+ *    page: 2;
+ *    url: "http://localhost/api/users";
+ *    collectionName: "users";
+ * }
+ *
+ * const response = getCollectionResponse(baseData);
+ * ```
+ * @param baseData {@link IHalCollectionRequest}
+ * @returns collection response in hal format
  */
-export const getCollectionResponse = (baseData: IHalCollectionRequest) => {
+export const getCollectionResponse = (
+  baseData: IHalCollectionRequest
+): IHalCollectionResponse => {
   validateCollectionData(baseData);
   const chunks = getChunks(baseData.data, baseData.chunk, baseData.page);
 
