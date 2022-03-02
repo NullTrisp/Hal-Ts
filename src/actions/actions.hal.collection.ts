@@ -11,7 +11,6 @@ import {
   IHalCollectionRequest,
 } from "../types/types.collection";
 import { IHalObject } from "../types/types.object";
-import { chunkArray } from "./actions.hal.object";
 
 /**
  *
@@ -68,6 +67,24 @@ export const validateCollectionData = (baseData: IHalCollectionRequest) => {
   if (baseData.chunk < 1) {
     throw new InvalidChunkSize();
   }
+};
+
+/**
+ *
+ * @param array
+ * @param chunkSize
+ * @returns
+ */
+export const chunkArray = <T>(array: T[], chunkSize: number) => {
+  let index = 0;
+  let arrayLength = array.length;
+  let tempArray = [];
+
+  for (index = 0; index < arrayLength; index += chunkSize) {
+    tempArray.push(array.slice(index, index + chunkSize));
+  }
+
+  return tempArray;
 };
 
 export const getChunks = (array: IHalObject[], chunk: number, page: number) => {
