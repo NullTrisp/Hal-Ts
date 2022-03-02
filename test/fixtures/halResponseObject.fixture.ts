@@ -1,6 +1,6 @@
-import { IHalBaseDataObject } from "../../src/types/types.object";
+import { IHalObjectRequest } from "../../src/types/types.object";
 
-export const basicObject: IHalBaseDataObject = {
+export const basicObject: IHalObjectRequest = {
   url: "http://localhost:8080/api/users",
   data: {
     identifier: 1,
@@ -10,7 +10,7 @@ export const basicObject: IHalBaseDataObject = {
   },
 };
 
-export const complexObject: IHalBaseDataObject = {
+export const complexObject: IHalObjectRequest = {
   ...basicObject,
   data: {
     ...basicObject.data,
