@@ -53,6 +53,27 @@ export const complexObject: IHalObjectRequest = {
   },
 };
 
+export const complexObjectWithCollection: IHalObjectRequest = {
+  ...basicObject,
+  data: {
+    ...basicObject.data,
+    _embeded: [
+      {
+        identifier: 10,
+        name: "Klei",
+        url: "http://localhost:8080/api/pets",
+        _embeded: undefined,
+      },
+      {
+        identifier: 11,
+        name: "Kleider",
+        url: "http://localhost:8080/api/pets",
+        _embeded: undefined,
+      },
+    ],
+  },
+};
+
 export const basicObjects = [
   basicObject.data,
   basicObject1.data,

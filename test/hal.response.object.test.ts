@@ -2,8 +2,17 @@ import assert from "assert";
 import mocha from "mocha";
 import { getHalObjectResponse } from "../src";
 import {
+  isHalObjectResponse,
+  isHalObjectResponseArray,
+} from "../src/actions/actions.hal.object";
+import {
+  IHalEmbededObject,
+  IHalObjectResponse,
+} from "../src/types/types.object";
+import {
   basicObject,
   complexObject,
+  complexObjectWithCollection,
 } from "./fixtures/hal.response.object.fixture";
 
 mocha.describe("Test Hal Object Response", () => {
@@ -14,9 +23,7 @@ mocha.describe("Test Hal Object Response", () => {
       response._links.self.href,
       `${basicObject.url}/${basicObject.data.identifier}`
     );
-
     assert.strictEqual(response._embeded, basicObject.data._embeded);
-
     assert.strictEqual(response.identifier, basicObject.data.identifier);
 
     done();
@@ -30,11 +37,44 @@ mocha.describe("Test Hal Object Response", () => {
       `${complexObject.url}/${complexObject.data.identifier}`
     );
 
+    assert.strictEqual(isHalObjectResponse(response._embeded), true);
+    assert.strictEqual(response._embeded?.length, undefined);
     assert.strictEqual(
-      response._embeded?._links.self.href,
-      `${complexObject.data._embeded?.url}/${complexObject.data._embeded?.identifier}`
+      (response._embeded as IHalObjectResponse)._links.self.href,
+      `${(complexObject.data._embeded as IHalEmbededObject).url}/${
+        (complexObject.data._embeded as IHalEmbededObject)?.identifier
+      }`
     );
 
     done();
   });
+
+  mocha.it(
+    "Should create response for complex object with collection",
+    (done) => {
+      const response = getHalObjectResponse(complexObjectWithCollection);
+
+      console.log(response);
+
+      assert.strictEqual(
+        response._links.self.href,
+        `${complexObjectWithCollection.url}/${complexObjectWithCollection.data.identifier}`
+      );
+
+      assert.strictEqual(isHalObjectResponseArray(response._embeded), true);
+      assert.strictEqual(response._embeded?.length, 2);
+      assert.strictEqual(
+        (response._embeded as IHalObjectResponse[])[0]._links.self.href,
+        `${
+          (complexObjectWithCollection.data._embeded as IHalEmbededObject[])[0]
+            .url
+        }/${
+          (complexObjectWithCollection.data._embeded as IHalEmbededObject[])[0]
+            ?.identifier
+        }`
+      );
+
+      done();
+    }
+  );
 });

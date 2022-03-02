@@ -3,7 +3,11 @@ import {
   getChunks,
   validateCollectionData,
 } from "./actions/actions.hal.collection";
-import { prepareEmbededData } from "./actions/actions.hal.object";
+import {
+  isHalEmbededObject,
+  isHalEmbededObjectArray,
+  prepareEmbededData,
+} from "./actions/actions.hal.object";
 import {
   IHalCollectionRequest,
   IHalCollectionResponse,
@@ -28,8 +32,22 @@ export const getHalObjectResponse = (baseData: IHalObjectRequest) => {
       },
     },
     ...baseData.data,
-    _embeded: prepareEmbededData(baseData.data._embeded),
+    _embeded: undefined,
   };
+
+  if (
+    baseData.data._embeded &&
+    isHalEmbededObjectArray(baseData.data._embeded)
+  ) {
+    response._embeded = baseData.data._embeded
+      .map((el) => prepareEmbededData(el))
+      .filter((el): el is IHalObjectResponse => !!el);
+  } else if (
+    baseData.data._embeded &&
+    isHalEmbededObject(baseData.data._embeded)
+  ) {
+    response._embeded = prepareEmbededData(baseData.data._embeded);
+  }
 
   return response;
 };

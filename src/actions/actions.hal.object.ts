@@ -1,5 +1,5 @@
 import { getHalObjectResponse } from "..";
-import { IHalEmbededObject } from "../types/types.object";
+import { IHalEmbededObject, IHalObjectResponse } from "../types/types.object";
 
 /**
  *
@@ -8,7 +8,7 @@ import { IHalEmbededObject } from "../types/types.object";
  */
 export const prepareEmbededData = (
   embededObject: IHalEmbededObject | undefined
-) => {
+): IHalObjectResponse | undefined => {
   if (embededObject) {
     return getHalObjectResponse({
       url: `${embededObject.url}`,
@@ -36,3 +36,42 @@ export const chunkArray = <T>(array: T[], chunkSize: number) => {
 
   return tempArray;
 };
+
+/**
+ *
+ * @param obj
+ * @returns
+ */
+export const isHalEmbededObjectArray = (
+  obj: IHalEmbededObject[] | IHalEmbededObject | undefined
+): obj is IHalEmbededObject[] =>
+  (obj as IHalEmbededObject[]).length !== undefined;
+
+/**
+ *
+ * @param obj
+ * @returns
+ */
+export const isHalEmbededObject = (
+  obj: IHalEmbededObject[] | IHalEmbededObject | undefined
+): obj is IHalEmbededObject => (obj as IHalEmbededObject).length === undefined;
+
+/**
+ *
+ * @param obj
+ * @returns
+ */
+export const isHalObjectResponse = (
+  obj: IHalObjectResponse | IHalObjectResponse[] | undefined
+): obj is IHalObjectResponse =>
+  (obj as IHalObjectResponse).length === undefined;
+
+/**
+ *
+ * @param obj
+ * @returns
+ */
+export const isHalObjectResponseArray = (
+  obj: IHalObjectResponse | IHalObjectResponse[] | undefined
+): obj is IHalObjectResponse[] =>
+  (obj as IHalObjectResponse).length !== undefined;
