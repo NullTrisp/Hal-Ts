@@ -4,7 +4,7 @@ import { getHalObjectResponse } from "../src";
 import {
   basicObject,
   complexObject,
-} from "./fixtures/halResponseObject.fixture";
+} from "./fixtures/hal.response.object.fixture";
 
 mocha.describe("Test Object Response", () => {
   mocha.it("Should create response for basic object", (done) => {
