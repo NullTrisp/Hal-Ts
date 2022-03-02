@@ -1,9 +1,17 @@
 import {
-    IHalCollectionRawRequest,
+  InvalidChunkSize,
+  InvalidPage,
+  PageNotFoundError,
+} from "../types/types";
+import {
+  IHalCollectionRawRequest,
   IHalCollectionLinks,
   IHalCollectionResponse,
   IHalCollectionResponseLinks,
+  IHalCollectionRequest,
 } from "../types/types.collection";
+import { IHalObject } from "../types/types.object";
+import { chunkArray } from "./actions.hal.object";
 
 /**
  *
@@ -51,4 +59,22 @@ export const generateHalCollectionResponse = (
   };
 
   return response;
+};
+
+export const validateCollectionData = (baseData: IHalCollectionRequest) => {
+  if (baseData.page < 1) {
+    throw new InvalidPage();
+  }
+  if (baseData.chunk < 1) {
+    throw new InvalidChunkSize();
+  }
+};
+
+export const getChunks = (array: IHalObject[], chunk: number, page: number) => {
+  const chunks = chunkArray<IHalObject>(array, chunk);
+  if (chunks.length < page) {
+    throw new PageNotFoundError();
+  } else {
+    return chunks;
+  }
 };

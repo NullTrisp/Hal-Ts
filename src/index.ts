@@ -1,12 +1,11 @@
-import { generateHalCollectionResponse } from "./actions/actions.hal.collection";
-import { chunkArray, prepareEmbededData } from "./actions/actions.hal.object";
-import { PageNotFoundError } from "./types/types";
-import { IHalCollectionRequest } from "./types/types.collection";
 import {
-  IHalObjectRequest,
-  IHalObjectResponse,
-  IHalObject,
-} from "./types/types.object";
+  generateHalCollectionResponse,
+  getChunks,
+  validateCollectionData,
+} from "./actions/actions.hal.collection";
+import { prepareEmbededData } from "./actions/actions.hal.object";
+import { IHalCollectionRequest } from "./types/types.collection";
+import { IHalObjectRequest, IHalObjectResponse } from "./types/types.object";
 
 /**
  * ```
@@ -38,18 +37,23 @@ export const getHalObjectResponse = (baseData: IHalObjectRequest) => {
  * @returns
  */
 export const getCollectionResponse = (baseData: IHalCollectionRequest) => {
-  const chunks = chunkArray<IHalObject>(baseData.data, baseData.chunk);
-
-  if (chunks.length < baseData.page) {
-    throw new PageNotFoundError();
-  }
+  validateCollectionData(baseData);
+  const chunks = getChunks(baseData.data, baseData.chunk, baseData.page);
 
   const response = generateHalCollectionResponse({
     links: {
-      selfUrl: `${baseData.url}/${baseData.page === 1 ? "" : baseData.page}`,
-      firstUrl: baseData.url,
-      lastUrl: `${baseData.url}/${chunks.length}`,
-      nextUrl: `${baseData.url}/${baseData.page + 1}`,
+      selfUrl: `${baseData.url}${
+        baseData.page === 1 ? "/" : `/${baseData.page}`
+      }`,
+      firstUrl: `${baseData.url}/`,
+      lastUrl:
+        chunks.length > 1
+          ? `${baseData.url}/${chunks.length}`
+          : `${baseData.url}/`,
+      nextUrl:
+        chunks.length > 1
+          ? `${baseData.url}/${baseData.page + 1}`
+          : `${baseData.url}/`,
       prevUrl: `${baseData.url}/${
         baseData.page === 1 ? "" : baseData.page - 1
       }`,
