@@ -1,4 +1,3 @@
-import util from "util";
 import { generateHalCollectionResponse } from "./actions/actions.hal.collection";
 import { chunkArray, prepareEmbededData } from "./actions/actions.hal.object";
 import { PageNotFoundError } from "./types/types";
@@ -8,8 +7,6 @@ import {
   IHalObjectResponse,
   IHalObject,
 } from "./types/types.object";
-
-util.inspect.defaultOptions.depth = null;
 
 /**
  * ```
