@@ -9,16 +9,16 @@ export interface IHalEmbededObject extends IHalObject {
   _embeded: IHalEmbededObject | undefined;
 }
 
-export interface IHalBaseDataObject {
+export interface IHalObjectRequest {
   url: string;
   data: IHalObject;
 }
-export interface IHalResponseObject {
+export interface IHalObjectResponse {
   _links: {
     self: {
       href: string;
     };
   };
   [key: string]: unknown;
-  _embeded: IHalResponseObject | undefined;
+  _embeded: IHalObjectResponse | undefined;
 }

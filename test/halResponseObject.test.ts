@@ -1,6 +1,6 @@
 import assert from "assert";
 import mocha from "mocha";
-import { generateHalObjectResponse } from "../src";
+import { getHalObjectResponse } from "../src";
 import {
   basicObject,
   complexObject,
@@ -8,7 +8,7 @@ import {
 
 mocha.describe("Test Object Response", () => {
   mocha.it("Should create response for basic object", (done) => {
-    const response = generateHalObjectResponse(basicObject);
+    const response = getHalObjectResponse(basicObject);
 
     assert.strictEqual(
       response._links.self.href,
@@ -23,7 +23,7 @@ mocha.describe("Test Object Response", () => {
   });
 
   mocha.it("Should create response for complex object", (done) => {
-    const response = generateHalObjectResponse(complexObject);
+    const response = getHalObjectResponse(complexObject);
 
     assert.strictEqual(
       response._links.self.href,

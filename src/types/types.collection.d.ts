@@ -1,6 +1,6 @@
 import { IHalObject } from "./types.object";
 
-interface IHalResponseCollectionLinks {
+interface IHalCollectionResponseLinks {
   self: {
     href: string;
   };
@@ -18,16 +18,7 @@ interface IHalResponseCollectionLinks {
   };
 }
 
-export interface IHalResponseCollection {
-  _links: IHalResponseCollectionLinks;
-  count: number;
-  total: number;
-  _embeded: {
-    [key: string]: IHalObject[];
-  };
-}
-
-export interface IHalBaseDataCollectionLinks {
+export interface IHalCollectionLinks {
   selfUrl: string;
   firstUrl: string;
   prevUrl: string;
@@ -35,9 +26,28 @@ export interface IHalBaseDataCollectionLinks {
   lastUrl: string;
 }
 
-export interface IHalBaseDataCollection {
+export interface IHalCollectionRawRequest {
   links: IHalBaseDataCollectionLinks;
   data: IHalObject[];
   total: number;
+  collectionName: string;
+  page: number;
+}
+
+export interface IHalCollectionResponse {
+  _links: IHalResponseCollectionLinks;
+  count: number;
+  total: number;
+  _embeded: {
+    [key: string]: IHalObject[];
+  };
+  page: number;
+}
+
+export interface IHalCollectionRequest {
+  data: IHalObject[];
+  chunk: number;
+  page: number;
+  url: string;
   collectionName: string;
 }
