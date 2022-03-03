@@ -1,6 +1,7 @@
 import {
   generateHalCollectionResponse,
   getChunks,
+  prepareCollectionLinks,
   validateCollectionData,
 } from "./actions/actions.hal.collection";
 import {
@@ -113,23 +114,12 @@ export const getCollectionResponse = (
   const chunks = getChunks(baseData.data, baseData.chunk, baseData.page);
 
   const response = generateHalCollectionResponse({
-    links: {
-      selfUrl: `${baseData.url}${
-        baseData.page === 1 ? "/" : `/${baseData.page}`
-      }`,
-      firstUrl: `${baseData.url}/`,
-      lastUrl:
-        chunks.length > 1
-          ? `${baseData.url}/${chunks.length}`
-          : `${baseData.url}/`,
-      nextUrl:
-        chunks.length > 1
-          ? `${baseData.url}/${baseData.page + 1}`
-          : `${baseData.url}/`,
-      prevUrl: `${baseData.url}/${
-        baseData.page === 1 ? "" : baseData.page - 1
-      }`,
-    },
+    links: prepareCollectionLinks(
+      baseData.url,
+      baseData.page,
+      chunks.length,
+      baseData.queryParams
+    ),
     data: chunks[baseData.page - 1],
     total: baseData.data.length,
     collectionName: baseData.collectionName,

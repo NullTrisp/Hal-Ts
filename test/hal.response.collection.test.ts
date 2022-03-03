@@ -14,23 +14,23 @@ mocha.describe("Test Hal Collection Response", () => {
 
     assert.strictEqual(
       response._links.self.href,
-      "http://localhost:8080/api/users/"
+      "http://localhost:8080/api/users/?page=1"
     );
     assert.strictEqual(
       response._links.first.href,
-      "http://localhost:8080/api/users/"
+      "http://localhost:8080/api/users/?page=1"
     );
     assert.strictEqual(
       response._links.prev.href,
-      "http://localhost:8080/api/users/"
+      "http://localhost:8080/api/users/?page=1"
     );
     assert.strictEqual(
       response._links.next.href,
-      "http://localhost:8080/api/users/2"
+      "http://localhost:8080/api/users/?page=2"
     );
     assert.strictEqual(
       response._links.last.href,
-      "http://localhost:8080/api/users/2"
+      "http://localhost:8080/api/users/?page=2"
     );
     assert.strictEqual(response.count, 2);
     assert.strictEqual(response.total, 4);
@@ -63,23 +63,23 @@ mocha.describe("Test Hal Collection Response", () => {
 
     assert.strictEqual(
       response._links.self.href,
-      "http://localhost:8080/api/users/"
+      "http://localhost:8080/api/users/?page=1"
     );
     assert.strictEqual(
       response._links.first.href,
-      "http://localhost:8080/api/users/"
+      "http://localhost:8080/api/users/?page=1"
     );
     assert.strictEqual(
       response._links.prev.href,
-      "http://localhost:8080/api/users/"
+      "http://localhost:8080/api/users/?page=1"
     );
     assert.strictEqual(
       response._links.next.href,
-      "http://localhost:8080/api/users/"
+      "http://localhost:8080/api/users/?page=1"
     );
     assert.strictEqual(
       response._links.last.href,
-      "http://localhost:8080/api/users/"
+      "http://localhost:8080/api/users/?page=1"
     );
     assert.strictEqual(response.count, 4);
     assert.strictEqual(response.total, 4);
@@ -106,16 +106,19 @@ mocha.describe("Test Hal Collection Response", () => {
     }
   );
 
-  mocha.it("Should not create response for collection (invalid page)", (done) => {
-    try {
-      collectionRequest.chunk = 4;
-      collectionRequest.page = 0;
-      getCollectionResponse(collectionRequest);
-    } catch (err) {
-      if (err instanceof InvalidPage) {
-        done();
+  mocha.it(
+    "Should not create response for collection (invalid page)",
+    (done) => {
+      try {
+        collectionRequest.chunk = 4;
+        collectionRequest.page = 0;
+        getCollectionResponse(collectionRequest);
+      } catch (err) {
+        if (err instanceof InvalidPage) {
+          done();
+        }
+        assert.fail();
       }
-      assert.fail();
     }
-  });
+  );
 });

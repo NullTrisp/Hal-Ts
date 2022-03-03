@@ -35,7 +35,7 @@ export interface IHalCollectionRawRequest {
 }
 
 export interface IHalCollectionResponse {
-  _links: IHalResponseCollectionLinks;
+  _links: IHalCollectionResponseLinks;
   count: number;
   total: number;
   _embeded: {
@@ -50,4 +50,5 @@ export interface IHalCollectionRequest {
   page: number;
   url: string;
   collectionName: string;
+  queryParams?: string;
 }

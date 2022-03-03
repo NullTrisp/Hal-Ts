@@ -13,7 +13,10 @@ import {
   basicObject,
   complexObject,
   complexObjectWithCollection,
+  complexObjectWithCollectionAndEmbededCollection,
 } from "./fixtures/hal.response.object.fixture";
+import util from "util";
+util.inspect.defaultOptions.depth = null;
 
 mocha.describe("Test Hal Object Response", () => {
   mocha.it("Should create response for basic object", (done) => {
@@ -71,6 +74,25 @@ mocha.describe("Test Hal Object Response", () => {
             ?.identifier
         }`
       );
+
+      done();
+    }
+  );
+
+  mocha.it(
+    "Should create response for complex object with embeded collection",
+    (done) => {
+      const response = getHalObjectResponse(
+        complexObjectWithCollectionAndEmbededCollection
+      );
+
+      assert.strictEqual(
+        response._links.self.href,
+        `${complexObjectWithCollectionAndEmbededCollection.url}/${complexObjectWithCollectionAndEmbededCollection.data.identifier}`
+      );
+
+      assert.strictEqual(isHalObjectResponseArray(response._embeded), true);
+      assert.strictEqual(response._embeded?.length, 1);
 
       done();
     }

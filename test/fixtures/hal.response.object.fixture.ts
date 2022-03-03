@@ -87,3 +87,35 @@ export const basicObjects = [
   basicObject2.data,
   basicObject3.data,
 ];
+
+export const complexObjectWithCollectionAndEmbededCollection: IHalObjectRequest =
+  {
+    url: "http://localhost:8080/api/users",
+    data: {
+      identifier: 100,
+      name: "Karl",
+      _embeded: [
+        {
+          url: "http://localhost:8080/api/carts",
+          identifier: "Gimme",
+          _embeded: [
+            {
+              url: "http://localhost:8080/api/products",
+              identifier: 100,
+              _embeded: undefined,
+            },
+            {
+              url: "http://localhost:8080/api/products",
+              identifier: 101,
+              _embeded: undefined,
+            },
+            {
+              url: "http://localhost:8080/api/products",
+              identifier: 102,
+              _embeded: undefined,
+            },
+          ],
+        },
+      ],
+    },
+  };
