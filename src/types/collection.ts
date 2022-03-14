@@ -1,6 +1,6 @@
-import { IHalObject } from "./types.object";
+import { IHalObject } from "./object";
 
-interface IHalCollectionResponseLinks {
+export interface IHalCollectionResponseLinks {
   self: {
     href: string;
   };
@@ -27,7 +27,7 @@ export interface IHalCollectionLinks {
 }
 
 export interface IHalCollectionRawRequest {
-  links: IHalBaseDataCollectionLinks;
+  links: IHalCollectionLinks;
   data: IHalObject[];
   total: number;
   collectionName: string;

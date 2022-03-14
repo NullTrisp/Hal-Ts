@@ -2,15 +2,15 @@ import {
   InvalidChunkSize,
   InvalidPage,
   PageNotFoundError,
-} from "../types/types";
+} from "../types/error";
 import {
   IHalCollectionRawRequest,
   IHalCollectionLinks,
   IHalCollectionResponse,
   IHalCollectionResponseLinks,
   IHalCollectionRequest,
-} from "../types/types.collection";
-import { IHalObject } from "../types/types.object";
+} from "../types/collection";
+import { IHalObject } from "../types/object";
 
 export const prepareCollectionLinks = (
   url: string,

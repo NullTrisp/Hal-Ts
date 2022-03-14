@@ -1,4 +1,4 @@
-import { IHalCollectionRequest } from "../../src/types/types.collection";
+import { IHalCollectionRequest } from "../../src/types/collection";
 import { basicObjects } from "./hal.response.object.fixture";
 
 export const collectionRequest: IHalCollectionRequest = {

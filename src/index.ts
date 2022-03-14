@@ -3,17 +3,17 @@ import {
   getChunks,
   prepareCollectionLinks,
   validateCollectionData,
-} from "./actions/actions.hal.collection";
+} from "./actions/collection";
 import {
   isHalEmbededObject,
   isHalEmbededObjectArray,
   prepareEmbededData,
-} from "./actions/actions.hal.object";
+} from "./actions/object";
 import {
   IHalCollectionRequest,
   IHalCollectionResponse,
-} from "./types/types.collection";
-import { IHalObjectRequest, IHalObjectResponse } from "./types/types.object";
+} from "./types/collection";
+import { IHalObjectRequest, IHalObjectResponse } from "./types/object";
 
 /**
  * ```

@@ -6,7 +6,7 @@ import {
   InvalidChunkSize,
   InvalidPage,
   PageNotFoundError,
-} from "../src/types/types";
+} from "../src/types/error";
 
 mocha.describe("Test Hal Collection Response", () => {
   mocha.it("Should create response for collection ", (done) => {

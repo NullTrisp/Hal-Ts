@@ -1,5 +1,5 @@
 import { getHalObjectResponse } from "..";
-import { IHalEmbededObject, IHalObjectResponse } from "../types/types.object";
+import { IHalEmbededObject, IHalObjectResponse } from "../types/object";
 
 /**
  * Takes an embeded object and transpiles it to a response object

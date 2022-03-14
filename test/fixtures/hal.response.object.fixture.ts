@@ -1,4 +1,4 @@
-import { IHalObjectRequest } from "../../src/types/types.object";
+import { IHalObjectRequest } from "../../src/types/object";
 
 export const basicObject: IHalObjectRequest = {
   url: "http://localhost:8080/api/users",

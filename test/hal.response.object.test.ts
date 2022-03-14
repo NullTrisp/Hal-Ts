@@ -4,19 +4,14 @@ import { getHalObjectResponse } from "../src";
 import {
   isHalObjectResponse,
   isHalObjectResponseArray,
-} from "../src/actions/actions.hal.object";
-import {
-  IHalEmbededObject,
-  IHalObjectResponse,
-} from "../src/types/types.object";
+} from "../src/actions/object";
+import { IHalEmbededObject, IHalObjectResponse } from "../src/types/object";
 import {
   basicObject,
   complexObject,
   complexObjectWithCollection,
   complexObjectWithCollectionAndEmbededCollection,
 } from "./fixtures/hal.response.object.fixture";
-import util from "util";
-util.inspect.defaultOptions.depth = null;
 
 mocha.describe("Test Hal Object Response", () => {
   mocha.it("Should create response for basic object", (done) => {
