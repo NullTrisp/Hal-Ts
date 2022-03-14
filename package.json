@@ -1,8 +1,8 @@
 {
   "name": "hal-ts",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Package to format api responses into hal format",
-  "main": "build/index.js",
+  "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
