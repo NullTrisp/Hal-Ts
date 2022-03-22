@@ -50,5 +50,5 @@ export interface IHalCollectionRequest {
   page: number;
   url: string;
   collectionName: string;
-  queryParams?: string;
+  queryParams?: string | object;
 }
