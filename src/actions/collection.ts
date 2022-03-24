@@ -16,10 +16,18 @@ export const prepareCollectionLinks = (
   url: string,
   page: number,
   chunksQuantity: number,
-  queryParams: string | undefined
+  queryParams: string | object | undefined
 ) => {
   if (queryParams === undefined) {
     queryParams = "";
+  } else if (typeof queryParams === "object") {
+    const query = queryParams;
+    queryParams = "";
+    Object.entries(query).forEach(([key, value]) => {
+      if (key !== "page") {
+        queryParams += `&${key}=${value}`;
+      }
+    });
   } else {
     queryParams = `&${queryParams}`;
   }
