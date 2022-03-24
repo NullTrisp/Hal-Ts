@@ -24,23 +24,23 @@ export const prepareCollectionLinks = (
     queryParams = `&${queryParams}`;
   }
 
-  const selfUrl = `${url}/?page=${page}${queryParams}`;
+  const selfUrl = `${url}?page=${page}${queryParams}`;
 
   const links: IHalCollectionLinks = {
     selfUrl: selfUrl,
     firstUrl:
       page === 1
         ? selfUrl
-        : `${url}/${queryParams ? "?" + queryParams.substring(1) : ""}`,
-    lastUrl: `${url}/?page=${chunksQuantity}${queryParams}`,
+        : `${url}${queryParams ? "?" + queryParams.substring(1) : ""}`,
+    lastUrl: `${url}?page=${chunksQuantity}${queryParams}`,
     nextUrl:
       chunksQuantity > 1
-        ? `${url}/?page=${page + 1}${queryParams}`
-        : `${url}/?page=${page}${queryParams}`,
+        ? `${url}?page=${page + 1}${queryParams}`
+        : `${url}?page=${page}${queryParams}`,
     prevUrl:
       page === 1
         ? selfUrl
-        : `${url}/${
+        : `${url}${
             page === 1
               ? queryParams && "?" + queryParams.substring(1)
               : "?page=" + (page - 1) + queryParams
@@ -86,7 +86,7 @@ export const generateHalCollectionResponse = (
 ) => {
   const response: IHalCollectionResponse = {
     _links: obtainCollectionLinks(baseData.links),
-    count: baseData.data.length,
+    count: baseData.data ? baseData.data.length : 0,
     total: baseData.total,
     _embeded: {
       [baseData.collectionName]: baseData.data,
@@ -105,7 +105,7 @@ export const validateCollectionData = (baseData: IHalCollectionRequest) => {
   if (baseData.page < 1) {
     throw new InvalidPage();
   }
-  if (baseData.chunk < 1) {
+  if (baseData.chunk < 0) {
     throw new InvalidChunkSize();
   }
 };
@@ -137,11 +137,19 @@ export const getChunks = (
   array: IHalObject[],
   chunkSize: number,
   page: number
-) => {
-  const chunks = chunkArray<IHalObject>(array, chunkSize);
-  if (chunks.length < page) {
-    throw new PageNotFoundError();
+): IHalObject[][] => {
+  //TODO check function responsability
+  if (array.length === 0) {
+    if (page > 1) {
+      throw new PageNotFoundError();
+    }
+    return [];
   } else {
-    return chunks;
+    const chunks = chunkArray<IHalObject>(array, chunkSize);
+    if (chunks.length < page) {
+      throw new PageNotFoundError();
+    } else {
+      return chunks;
+    }
   }
 };

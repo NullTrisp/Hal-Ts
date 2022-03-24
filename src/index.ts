@@ -117,11 +117,11 @@ export const getCollectionResponse = (
     links: prepareCollectionLinks(
       baseData.url,
       baseData.page,
-      chunks.length,
+      baseData.data.length > 0 ? chunks.length : 1,
       baseData.queryParams
     ),
     data: chunks[baseData.page - 1],
-    total: baseData.data.length,
+    total: baseData.data.length || 0,
     collectionName: baseData.collectionName,
     page: baseData.page,
   });
